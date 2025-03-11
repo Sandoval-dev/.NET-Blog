@@ -41,5 +41,29 @@ namespace BlogV1.Controllers
             _context.SaveChanges();
             return RedirectToAction("Details", new {id=model.BlogId});
         }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateContact(Contact model)
+        {
+            model.createdAt=DateTime.Now;
+            _context.Contacts.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Support()
+        {
+            return View();
+        }
     }
 }

@@ -5,10 +5,9 @@
     <div class="article">
         <h2><span>@Model.Name</span></h2>
         <div class="clr"></div>
-        <p>Posted by <a href="#">Owner</a> <span>&nbsp;&bull;&nbsp;</span> Filed under <a href="#">templates</a>, <a href="#">internet</a></p>
         <p>@Model.Description</p>
         <p>Tagged: <a href="#">@Model.Tags</a>,</p>
-        <p><a href="#"><strong>Comments (@Model.CommentCount)</strong></a> <span>&nbsp;&bull;&nbsp;</span> @Model.PublishDate <span>&nbsp;&bull;&nbsp;</span> </p>
+        <p><a href="#"><strong>Comments (@Model.CommentCount)</strong></a> <span>&nbsp;&bull;&nbsp;</span> @Model.PublishDate.ToString("dd/MM/yyyy HH:mm")<span>&nbsp;&bull;&nbsp;</span> </p>
     </div>
     <div class="article">
         <h2><span>3</span> Responses</h2>

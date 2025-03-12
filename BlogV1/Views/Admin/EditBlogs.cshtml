@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
+}
+@model Blog
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit Blog</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </a>
+</div>
+
+<form class="user" action="/Admin/EditBlog" method="post" id="editBlogForm">
+    <input type="hidden" name="id" value="@Model.Id"/>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-user"
+               id="blogname" aria-describedby="blogname"
+               placeholder="Enter a header" value="@Model.Name" required name="name">
+    </div>
+    <div class="form-group">
+        <textarea type="text" class="form-control form-control-user"
+               id="blogdescription" placeholder="Enter a description" name="description" required>@Model.Description</textarea>
+    </div>
+    <div class="form-group">
+        <input type="text" name="imageUrl" value="@Model.ImageUrl" class="form-control form-control-user"
+               id="blogimageUrl" aria-describedby="blogimageUrl"
+               placeholder="Enter a image URL" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="tags" value="@Model.Tags" class="form-control form-control-user"
+               id="blogtags" aria-describedby="blogtags"
+               placeholder="Enter tags" required>
+    </div>
+    <button class="btn btn-success btn-icon-split" type="submit" value="Submit">
+        <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">Save</span>
+    </button>
+    <a href="/Admin/DeleteBlog?id=@Model.Id" class="btn btn-danger btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-trash"></i>
+        </span>
+        <span class="text">Delete</span>
+    </a>
+    <a href="#" class="btn btn-info btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-info-circle"></i>
+        </span>
+        <span class="text">Go to Comments</span>
+    </a>
+    <a href="/Admin/Blogs" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+    @if (Model.Status == 1)
+    {
+        <a href="/Admin/ToggleStatus?id=@Model.Id" class="btn btn-warning btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            <span class="text">Close</span>
+        </a>
+    }
+    else
+    {
+        <a href="/Admin/ToggleStatus?id=@Model.Id" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-flag"></i>
+            </span>
+            <span class="text">Open</span>
+        </a>
+
+    }
+
+
+    <hr>
+</form>

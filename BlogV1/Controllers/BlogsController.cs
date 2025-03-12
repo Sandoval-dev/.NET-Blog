@@ -1,5 +1,8 @@
 ﻿using BlogV1.Context;
+using BlogV1.Identity;
 using BlogV1.Models;
+using BlogV1.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogV1.Controllers
@@ -8,9 +11,12 @@ namespace BlogV1.Controllers
     {
         private readonly BlogDbContext _context;
 
+
+
         public BlogsController(BlogDbContext context)
         {
             _context = context;
+
         }
 
         public IActionResult Index()
@@ -65,5 +71,8 @@ namespace BlogV1.Controllers
         {
             return View();
         }
+
+      
+    
     }
 }

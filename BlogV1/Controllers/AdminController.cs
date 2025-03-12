@@ -1,16 +1,27 @@
 ﻿using BlogV1.Context;
+using BlogV1.Identity;
 using BlogV1.Models;
+using BlogV1.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogV1.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
+       
         private readonly BlogDbContext _context;
+        private readonly UserManager<BlogIdentityUser> _userManager;
+        private readonly SignInManager<BlogIdentityUser> _signInManager;
+  
 
-        public AdminController(BlogDbContext context)
+        public AdminController(BlogDbContext context, UserManager<BlogIdentityUser> userManager, SignInManager<BlogIdentityUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -72,6 +83,9 @@ namespace BlogV1.Controllers
             return View();
         }
 
+
+        //Comments Section
+
         [HttpPost]
         public IActionResult CreateBlog(Blog model)
         {
@@ -104,6 +118,51 @@ namespace BlogV1.Controllers
             _context.SaveChanges();
             return RedirectToAction("Comments");
         }
+
+        //Register - Login Actions
+
+        public IActionResult Register()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (model.Password == model.RePassword)
+            {
+                var user = new BlogIdentityUser
+                {
+                    Name = model.Name,
+                    Surname= model.Surname,
+                    Email = model.Email,
+                    UserName=model.Email
+
+                };
+                var result=await _userManager.CreateAsync(user,model.Password);
+                if (result.Succeeded) 
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Blogs");
+        }
+
+        
 
     }
 }

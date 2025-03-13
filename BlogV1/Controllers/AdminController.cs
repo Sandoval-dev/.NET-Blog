@@ -26,7 +26,29 @@ namespace BlogV1.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var dashboard = new DashboardViewModel();
+
+            var totalBlogCount = _context.Blogs.Count();
+            var totalViews = _context.Blogs.Select(x => x.ViewCount).Sum();
+            var mostViewedBlog = _context.Blogs.OrderByDescending(x => x.ViewCount).FirstOrDefault();
+            var lastPublishedBlog=_context.Blogs.OrderByDescending(x=>x.PublishDate).FirstOrDefault();
+            var totalComments = _context.Blogs.Select(x => x.CommentCount).Sum();
+            var mostCommentedBlogId=_context.Comments.GroupBy(x=>x.BlogId).OrderByDescending(g=>g.Count()).Select(g=>g.Key).FirstOrDefault();
+            var mostCommentedBlog = _context.Blogs.Where(x => x.Id == mostCommentedBlogId).FirstOrDefault();
+            var addedCommentsToday = _context.Comments.Where(x => x.PublishDate.Date == DateTime.Now.Date).Count();
+
+
+            dashboard.TotalBlogCount = totalBlogCount;
+            dashboard.TotalViewCount = totalViews;
+            dashboard.MostViewedBlog = mostViewedBlog;
+            dashboard.LatestBlog = lastPublishedBlog;
+            dashboard.TotalCommentsCount = totalComments;
+            dashboard.MostCommentedBlog = mostCommentedBlog;
+            dashboard.TodayCommentCount = addedCommentsToday;
+
+
+
+            return View(dashboard);
         }
 
         public IActionResult Blogs()
@@ -162,6 +184,11 @@ namespace BlogV1.Controllers
             return RedirectToAction("Index","Blogs");
         }
 
+        public IActionResult Contact()
+        {
+            var contact = _context.Contacts.ToList();
+            return View(contact);
+        }
         
 
     }

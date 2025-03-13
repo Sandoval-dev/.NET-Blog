@@ -42,9 +42,6 @@
 - Bootstrap
 - JavaScript
 
-### Contribution
-Contributions are welcome! Feel free to fork the repository and create a pull request with your improvements.
-
 ### License
 This project is licensed under the MIT License.
 
@@ -91,9 +88,6 @@ This project is licensed under the MIT License.
 - SQL Server
 - Bootstrap
 - JavaScript
-
-### Katkıda Bulunma
-Katkılar memnuniyetle karşılanır! Depoyu çatallayıp (fork) geliştirmelerinizle bir çekme isteği (pull request) oluşturabilirsiniz.
 
 ### Lisans
 Bu proje MIT Lisansı altında lisanslanmıştır.
